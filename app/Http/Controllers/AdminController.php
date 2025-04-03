@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Carrera;
 use App\Models\Gestion;
+use App\Models\Materia;
 use App\Models\Nivel;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,12 @@ class AdminController extends Controller
     {
         $total_gestiones = Gestion::count();
         $total_carreras = Carrera::count();
-        $total_niveles = Nivel::count();    
-        return view('admin.index',compact('total_gestiones','total_carreras','total_niveles'));
+        $total_niveles = Nivel::count();  
+        $total_materias = Materia::count();  
+        return view('admin.index',compact('total_gestiones',
+                                                     'total_carreras',
+                                                                'total_niveles',
+                                                                'total_materias'
+        ));
     }
 }
