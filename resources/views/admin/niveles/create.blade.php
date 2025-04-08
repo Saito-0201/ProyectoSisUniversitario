@@ -10,7 +10,7 @@
         <div class="col-md-6">
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Lleno los datos del formulario</h3>
+                    <h3 class="card-title">Llene los datos del formulario</h3>
                     <!-- /.card-tools -->
                 </div>
                 <!-- /.card-header -->
@@ -37,7 +37,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <a href="{{url('/admin/carreras')}}" class="btn btn-secondary">Cancelar</a>
+                                    <a href="{{url('/admin/niveles')}}" class="btn btn-secondary">Cancelar</a>
                                     <button type="submit" class="btn btn-primary">Registrar</button>
                                 </div>
                             </div>

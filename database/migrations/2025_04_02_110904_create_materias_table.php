@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->unsignedBigInteger('carrera_id');
+            //Clave foranea
             $table->foreign('carrera_id')->references('id')->on('carreras')->onDelete('cascade');
             $table->string('nombre');
             $table->string('codigo');

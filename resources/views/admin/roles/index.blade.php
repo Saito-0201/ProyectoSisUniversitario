@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('content_header')
-    <h1><b>Listado de Materias </b></h1>
+    <h1><b>Listado de Roles </b></h1>
     <hr>
 @stop
 
@@ -10,10 +10,10 @@
         <div class="col-md-8">
             <div class="card card-outline card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Materias registradas</h3>
+                    <h3 class="card-title">Roles registrados</h3>
 
                     <div class="card-tools">
-                        <a href="{{url('/admin/materias/create')}}" class="btn btn-primary"> Crear nuevo</a>
+                        <a href="{{url('/admin/roles/create')}}" class="btn btn-primary"> Crear nuevo</a>
                     </div>
                     <!-- /.card-tools -->
                 </div>
@@ -23,9 +23,7 @@
                         <thead>
                         <tr>
                             <th style="text-align: center">Nro</th>
-                            <th style="text-align: center">Carrera</th>
-                            <th style="text-align: center">Nombre de la materia</th>
-                            <th style="text-align: center">Código</th>
+                            <th style="text-align: center">Nombre del rol</th>
                             <th style="text-align: center">Acción</th>
                         </tr>
                         </thead>
@@ -33,24 +31,21 @@
                         @php
                             $contador = 1;
                         @endphp
-                        @foreach($materias as $materia)
+                        @foreach($roles as $rol)
                             <tr>
                                 <td style="text-align: center">{{$contador++}}</td>
-                                <td>{{$materia->carrera->nombre}}</td>
-                                <td>{{$materia->nombre}}</td>
-                                <td>{{$materia->codigo}}</td>
-
+                                <td>{{$rol->name}}</td>
                                 <td style="text-align: center">
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <a href="{{url('/admin/materias/'.$materia->id.'/edit')}}" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i></a>
-                                        <form action="{{url('/admin/materias',$materia->id)}}" method="post"
-                                              onclick="preguntar{{$materia->id}}(event)" id="miFormulario{{$materia->id}}">
+                                        <a href="{{url('/admin/roles/'.$rol->id.'/edit')}}" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i></a>
+                                        <form action="{{url('/admin/roles',$rol->id)}}" method="post"
+                                              onclick="preguntar{{$rol->id}}(event)" id="miFormulario{{$rol->id}}">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
                                         </form>
                                         <script>
-                                            function preguntar{{$materia->id}}(event) {
+                                            function preguntar{{$rol->id}}(event) {
                                                 event.preventDefault();
                                                 Swal.fire({
                                                     title: '¿Desea eliminar esta registro?',
@@ -63,7 +58,7 @@
                                                     denyButtonText: 'Cancelar',
                                                 }).then((result) => {
                                                     if (result.isConfirmed) {
-                                                        var form = $('#miFormulario{{$materia->id}}');
+                                                        var form = $('#miFormulario{{$rol->id}}');
                                                         form.submit();
                                                     }
                                                 });
@@ -117,10 +112,10 @@
                 "pageLength": 5,
                 "language": {
                     "emptyTable": "No hay información",
-                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Materias",
-                    "infoEmpty": "Mostrando 0 a 0 de 0 Materias",
-                    "infoFiltered": "(Filtrado de _MAX_ total Materias)",
-                    "lengthMenu": "Mostrar _MENU_ Materias",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Roles",
+                    "infoEmpty": "Mostrando 0 a 0 de 0 Roles",
+                    "infoFiltered": "(Filtrado de _MAX_ total Roles)",
+                    "lengthMenu": "Mostrar _MENU_ Roles",
                     "loadingRecords": "Cargando...",
                     "processing": "Procesando...",
                     "search": "Buscador:",

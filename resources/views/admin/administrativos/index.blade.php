@@ -1,19 +1,19 @@
 @extends('adminlte::page')
 
 @section('content_header')
-    <h1><b>Listado de Materias </b></h1>
+    <h1><b>Listado del Personal Administrativo </b></h1>
     <hr>
 @stop
 
 @section('content')
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card card-outline card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Materias registradas</h3>
+                    <h3 class="card-title">Administrativos registradas</h3>
 
                     <div class="card-tools">
-                        <a href="{{url('/admin/materias/create')}}" class="btn btn-primary"> Crear nuevo</a>
+                        <a href="{{url('/admin/administrativos/create')}}" class="btn btn-primary"> Crear nuevo</a>
                     </div>
                     <!-- /.card-tools -->
                 </div>
@@ -23,9 +23,13 @@
                         <thead>
                         <tr>
                             <th style="text-align: center">Nro</th>
-                            <th style="text-align: center">Carrera</th>
-                            <th style="text-align: center">Nombre de la materia</th>
-                            <th style="text-align: center">Código</th>
+                            <th style="text-align: center">Rol</th>
+                            <th style="text-align: center">Nombres</th>
+                            <th style="text-align: center">Apellidos</th>
+                            <th style="text-align: center">Cédula</th>
+                            <th style="text-align: center">Teléfono</th>
+                            <th style="text-align: center">Correo</th>
+                            <th style="text-align: center">Profesion</th>
                             <th style="text-align: center">Acción</th>
                         </tr>
                         </thead>
@@ -33,24 +37,29 @@
                         @php
                             $contador = 1;
                         @endphp
-                        @foreach($materias as $materia)
+                        @foreach($administrativos as $administrativo)
                             <tr>
                                 <td style="text-align: center">{{$contador++}}</td>
-                                <td>{{$materia->carrera->nombre}}</td>
-                                <td>{{$materia->nombre}}</td>
-                                <td>{{$materia->codigo}}</td>
+                                <td>{{$administrativo->usuario->roles->pluck('name')->implode(', ')}}</td>
+                                <td>{{$administrativo->nombres}}</td>
+                                <td>{{$administrativo->apellidos}}</td>
+                                <td>{{$administrativo->ci}}</td>
+                                <td>{{$administrativo->telefono}}</td>
+                                <td>{{$administrativo->usuario->email}}</td>
+                                <td>{{$administrativo->profesion}}</td>
 
                                 <td style="text-align: center">
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <a href="{{url('/admin/materias/'.$materia->id.'/edit')}}" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i></a>
-                                        <form action="{{url('/admin/materias',$materia->id)}}" method="post"
-                                              onclick="preguntar{{$materia->id}}(event)" id="miFormulario{{$materia->id}}">
+                                        <a href="{{url('/admin/administrativos/'.$administrativo->id)}}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i></a>
+                                        <a href="{{url('/admin/administrativos/'.$administrativo->id.'/edit')}}" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i></a>
+                                        <form action="{{url('/admin/administrativos',$administrativo->id)}}" method="post"
+                                              onclick="preguntar{{$administrativo->id}}(event)" id="miFormulario{{$administrativo->id}}">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
                                         </form>
                                         <script>
-                                            function preguntar{{$materia->id}}(event) {
+                                            function preguntar{{$administrativo->id}}(event) {
                                                 event.preventDefault();
                                                 Swal.fire({
                                                     title: '¿Desea eliminar esta registro?',
@@ -63,7 +72,7 @@
                                                     denyButtonText: 'Cancelar',
                                                 }).then((result) => {
                                                     if (result.isConfirmed) {
-                                                        var form = $('#miFormulario{{$materia->id}}');
+                                                        var form = $('#miFormulario{{$administrativo->id}}');
                                                         form.submit();
                                                     }
                                                 });
@@ -117,10 +126,10 @@
                 "pageLength": 5,
                 "language": {
                     "emptyTable": "No hay información",
-                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Materias",
-                    "infoEmpty": "Mostrando 0 a 0 de 0 Materias",
-                    "infoFiltered": "(Filtrado de _MAX_ total Materias)",
-                    "lengthMenu": "Mostrar _MENU_ Materias",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Administrativos",
+                    "infoEmpty": "Mostrando 0 a 0 de 0 Administrativos",
+                    "infoFiltered": "(Filtrado de _MAX_ total Administrativos)",
+                    "lengthMenu": "Mostrar _MENU_ Administrativos",
                     "loadingRecords": "Cargando...",
                     "processing": "Procesando...",
                     "search": "Buscador:",
